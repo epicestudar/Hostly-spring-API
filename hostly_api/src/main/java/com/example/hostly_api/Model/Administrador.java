@@ -1,5 +1,7 @@
 package com.example.hostly_api.Model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
