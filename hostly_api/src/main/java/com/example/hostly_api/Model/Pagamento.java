@@ -1,5 +1,6 @@
 package com.example.hostly_api.Model;
 
+import java.io.Serializable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import com.example.hostly_api.Enum.MetodoPagamento;
 @Table(name = "pagamentos")
 @Getter
 @Setter
-public class Pagamento {
+public class Pagamento implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

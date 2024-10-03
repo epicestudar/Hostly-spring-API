@@ -1,5 +1,6 @@
 package com.example.hostly_api.Model;
 
+import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -23,7 +24,7 @@ import com.example.hostly_api.Enum.StatusReserva;
 @Table(name = "reservas")
 @Getter
 @Setter
-public class Reserva {
+public class Reserva implements Serializable{
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id_reserva;

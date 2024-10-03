@@ -2,7 +2,7 @@ package com.example.hostly_api.Model;
 
 import com.example.hostly_api.Enum.StatusQuarto;
 import com.example.hostly_api.Enum.TipoQuarto;
-
+import java.io.Serializable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ import java.util.List;
 @Table(name = "quartos")
 @Getter
 @Setter
-public class Quarto {
+public class Quarto implements Serializable{
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id_quarto;

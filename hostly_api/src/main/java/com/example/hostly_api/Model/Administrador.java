@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(name = "administrador")
 @Getter
 @Setter
-public class Administrador{
+public class Administrador implements Serializable {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id_administrador;

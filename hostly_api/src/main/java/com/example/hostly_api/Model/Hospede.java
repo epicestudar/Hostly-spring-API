@@ -1,5 +1,6 @@
 package com.example.hostly_api.Model;
 
+import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Table(name = "hospedes")
 @Getter
 @Setter
-public class Hospede {
+public class Hospede implements Serializable{
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id_hospede;
