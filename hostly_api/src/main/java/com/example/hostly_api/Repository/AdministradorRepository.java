@@ -7,5 +7,6 @@ import com.example.hostly_api.Model.Administrador;
 
 @Repository
 public interface AdministradorRepository extends JpaRepository<Administrador, Long>{
-
+Administrador findByIdAdministrador (Long id);
+Administrador findByEmail(String email);
 }

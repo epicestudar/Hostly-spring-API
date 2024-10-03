@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.example.hostly_api.Model.Hospede;
 
+
 @Repository
 public interface HospedeRepository extends JpaRepository<Hospede, Long>{
-    
+    Hospede findByEmail(String email);
+    Hospede findByCpf(String cpf);
 }
