@@ -44,7 +44,8 @@ public class Reserva implements Serializable{
     private Hospede hospede;
 
     @NotNull(message = "O nome do hospede é obrigatório")
-    @Column(name = "nome_hospede", length = 100, nullable = false)
+    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY) // isso significa que as entidades associadas também
+    @JoinColumn(name = "nome_hospede", referencedColumnName = "nome", nullable = false)                
     private String nome_hospede;
 
     @NotNull(message = "A quantidade de diarias é obrigatório")
