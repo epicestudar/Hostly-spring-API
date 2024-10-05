@@ -1,3 +1,28 @@
+1. Validação e Tratamento de Exceções:
+Adicionar validações aos modelos usando anotações como @NotNull, @Email, @Size, etc., para garantir que os dados inseridos estão corretos.
+Criar uma classe para tratamento global de exceções (@ControllerAdvice) para capturar erros, como EntityNotFoundException, validações, ou outros problemas, e retornar respostas amigáveis ao usuário.
+
+2. Testes Unitários e de Integração:
+Testes Unitários: Crie testes para os Services e Repositories para garantir que a lógica de negócios funciona corretamente.
+Testes de Integração: Crie testes para os Controllers usando frameworks como JUnit e Spring Boot Test. Aqui você pode simular requisições HTTP e verificar as respostas.
+
 3. Segurança:
 Autenticação e Autorização: Adicionar um sistema de segurança usando Spring Security para proteger rotas específicas, como os endpoints de administrador e pagamento.
 Implementar o sistema de login para os administradores e hóspedes, garantindo que apenas usuários autenticados possam acessar certas funcionalidades.
+
+4. Configuração do MongoDB:
+Configurar o MongoDB no projeto para que seja utilizado corretamente como o banco de dados.
+Testar a conexão e garantir que a aplicação esteja salvando e recuperando dados corretamente no MongoDB.
+
+5. Integração de Pagamentos:
+Se houver uma funcionalidade de pagamento online, você pode começar a integrar um gateway de pagamento (ex: Stripe, PayPal) para processar as transações de reserva.
+
+6. Gerar Relatórios (PDF/CSV/TXT):
+Implementar a funcionalidade de geração de relatórios que você mencionou. Isso pode incluir a geração de relatórios de reservas, pagamentos, entre outros. Bibliotecas como iText ou Apache POI podem ser úteis.
+
+7. Documentação da API:
+Criar uma documentação para a sua API usando Swagger ou SpringDoc OpenAPI. Isso facilita a visualização de todos os endpoints e os dados necessários para fazer requisições.
+
+8. Deploy:
+Preparar o ambiente para deploy da aplicação em um servidor ou plataforma em nuvem (ex: Heroku, AWS, DigitalOcean).
+Configurar o CI/CD para automação de builds e deploy contínuos.
