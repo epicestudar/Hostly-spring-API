@@ -16,7 +16,7 @@ public class AdministradorService {
     private AdministradorRepository administradorRepository;
 
     // Buscar administrador por ID
-    public Optional<Administrador> buscarPorId(Long id_administrador) {
+    public Optional<Administrador> buscarPorId(String id_administrador) {
         return administradorRepository.findById(id_administrador);
     }
 
@@ -31,7 +31,7 @@ public class AdministradorService {
     }
 
    // Atualizar um administrador
-   public Optional<Administrador> atualizar(Long id_administrador, Administrador dadosAtualizados) {
+   public Optional<Administrador> atualizar(String id_administrador, Administrador dadosAtualizados) {
     Optional<Administrador> administradorExistente = administradorRepository.findById(id_administrador);
 
     if (administradorExistente.isPresent()) {
@@ -47,7 +47,7 @@ public class AdministradorService {
 }
 
     // Deletar um administrador
-    public void deletar(Long id_administrador) {
+    public void deletar(String id_administrador) {
         administradorRepository.deleteById(id_administrador);
     }
 }

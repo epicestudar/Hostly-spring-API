@@ -33,7 +33,7 @@ public class ReservaServiceTest {
     }
 @Test
     public void testBuscarReservaPorId() {
-        Long idReserva = 1L;
+        String idReserva = "1";
         Reserva reservaExistente = new Reserva();
         reservaExistente.setId_reserva(idReserva);
 
@@ -63,7 +63,7 @@ public class ReservaServiceTest {
 
     @Test
     public void testAtualizarReservaExistente() {
-        Long idReserva = 1L;
+        String idReserva = "1";
         Reserva reservaExistente = new Reserva();
         reservaExistente.setId_reserva(idReserva);
         reservaExistente.setQuantidade_diarias(2);
@@ -87,7 +87,7 @@ public class ReservaServiceTest {
 
      @Test
     public void testDeletarReserva() {
-        Long idReserva = 1L;
+        String idReserva = "1";
         doNothing().when(reservaRepository).deleteById(idReserva);
 
         // Chama o método de deletar

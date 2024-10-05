@@ -16,7 +16,7 @@ public class ReservaService {
     private ReservaRepository reservaRepository;
 
     // Buscar reserva por ID
-    public Optional<Reserva> buscarPorId(Long id_reserva) {
+    public Optional<Reserva> buscarPorId(String id_reserva) {
         return this.reservaRepository.findById(id_reserva);
     }
 
@@ -26,7 +26,7 @@ public class ReservaService {
     }
 
     // Atualizar as informações da reserva
-    public Optional<Reserva> atualizar(Long id_reserva, Reserva dadosAtualizados) {
+    public Optional<Reserva> atualizar(String id_reserva, Reserva dadosAtualizados) {
         Optional<Reserva> reservaExistente = reservaRepository.findById(id_reserva);
 
         if (reservaExistente.isPresent()) {
@@ -44,7 +44,7 @@ public class ReservaService {
     }
 
     // Deletar uma reserva
-    public void deletar(Long id_reserva) {
+    public void deletar(String id_reserva) {
         this.reservaRepository.deleteById(id_reserva);
     }
 }

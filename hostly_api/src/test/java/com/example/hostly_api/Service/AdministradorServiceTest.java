@@ -29,7 +29,7 @@ public class AdministradorServiceTest {
 
     @Test
     public void testBuscarPorIdAdministradorExistente() {
-        Long idAdministrador = 1L;
+        String idAdministrador = "1";
         Administrador mockAdministrador = new Administrador();
         mockAdministrador.setId_administrador(idAdministrador);
         mockAdministrador.setEmail("admin@example.com");
@@ -45,7 +45,7 @@ public class AdministradorServiceTest {
 
     @Test
     public void testBuscarPorIdAdministradorNaoExistente() {
-        Long idAdministrador = 99L;
+        String idAdministrador = "99";
 
         when(administradorRepository.findById(idAdministrador)).thenReturn(Optional.empty());
 
@@ -70,7 +70,7 @@ public class AdministradorServiceTest {
 
     @Test
     public void testAtualizarAdministradorExistente() {
-        Long idAdministrador = 1L;
+        String idAdministrador = "1";
         Administrador administradorExistente = new Administrador();
         administradorExistente.setId_administrador(idAdministrador);
         administradorExistente.setEmail("admin@example.com");
@@ -91,7 +91,7 @@ public class AdministradorServiceTest {
 
     @Test
     public void testAtualizarAdministradorNaoExistente() {
-        Long idAdministrador = 99L;
+        String idAdministrador = "99";
         Administrador dadosAtualizados = new Administrador();
         dadosAtualizados.setEmail("adminatualizado@example.com");
 
@@ -108,7 +108,7 @@ public class AdministradorServiceTest {
 
     @Test
     public void testDeletarAdministrador() {
-        Long idAdministrador = 1L;
+        String idAdministrador = "1";
         doNothing().when(administradorRepository).deleteById(idAdministrador);
 
         // Chama o método de deletar

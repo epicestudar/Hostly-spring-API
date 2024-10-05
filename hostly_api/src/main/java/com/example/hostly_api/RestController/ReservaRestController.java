@@ -26,7 +26,7 @@ public class ReservaRestController {
 
     // Buscar reserva por ID
     @GetMapping("/{id_reserva}")
-    public ResponseEntity<Reserva> buscarPorId(@PathVariable Long id_reserva) {
+    public ResponseEntity<Reserva> buscarPorId(@PathVariable String id_reserva) {
         Optional<Reserva> reserva = reservaService.buscarPorId(id_reserva);
         return reserva.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -41,7 +41,7 @@ public class ReservaRestController {
 
     // Atualizar uma reserva
     @PutMapping("/{id_reserva}")
-    public ResponseEntity<Reserva> atualizar(@PathVariable Long id_reserva, @RequestBody Reserva dadosAtualizados) {
+    public ResponseEntity<Reserva> atualizar(@PathVariable String id_reserva, @RequestBody Reserva dadosAtualizados) {
         try {
             Optional<Reserva> reservaAtualizada = reservaService.atualizar(id_reserva, dadosAtualizados);
             return reservaAtualizada.map(ResponseEntity::ok)
@@ -53,7 +53,7 @@ public class ReservaRestController {
 
     // Deletar uma reserva
     @DeleteMapping("/{id_reserva}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id_reserva) {
+    public ResponseEntity<Void> deletar(@PathVariable String id_reserva) {
         Optional<Reserva> reserva = reservaService.buscarPorId(id_reserva);
         
         if (reserva.isPresent()) {

@@ -2,13 +2,11 @@ package com.example.hostly_api.Model;
 
 import java.io.Serializable;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -18,16 +16,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.example.hostly_api.Enum.StatusReserva;
 
-@Entity
-@Table(name = "reservas")
+@Document(collection = "reservas")
 @Getter
 @Setter
 public class Reserva implements Serializable{
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id_reserva;
+    private String id_reserva;
 
     @NotNull(message = "O código do quarto é obrigatório")
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY) // isso significa que as entidades associadas só serão

@@ -31,7 +31,7 @@ public class HospedeService {
     }
 
     // Atualizar um hóspede
-    public Optional<Hospede> atualizar(Long id_hospede, Hospede dadosAtualizados) {
+    public Optional<Hospede> atualizar(String id_hospede, Hospede dadosAtualizados) {
         Optional<Hospede> hospedeExistente = hospedeRepository.findById(id_hospede);
 
         if (hospedeExistente.isPresent()) {
@@ -51,7 +51,7 @@ public class HospedeService {
     }
 
     // Deletar um hóspede
-    public void deletar(Long id_hospede) {
+    public void deletar(String id_hospede) {
         hospedeRepository.deleteById(id_hospede);
     }
 }

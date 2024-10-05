@@ -2,13 +2,14 @@ package com.example.hostly_api.Model;
 
 import java.io.Serializable;
 import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -17,14 +18,13 @@ import lombok.Setter;
 
 
 
-@Entity
-@Table(name = "hospedes")
+@Document(collection = "hospedes")
 @Getter
 @Setter
 public class Hospede implements Serializable{
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id_hospede;
+    private String id_hospede;
 
     @NotBlank(message = "O nome é obrigatório")
     @Column(name = "nome", length = 100, nullable = false)

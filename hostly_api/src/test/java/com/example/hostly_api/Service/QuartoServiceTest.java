@@ -35,7 +35,7 @@ public class QuartoServiceTest {
 
     @Test
     public void testBuscarQuartoPorId() {
-        Long idQuarto = 1L;
+        String idQuarto = "1";
         Quarto quartoExistente = new Quarto();
         quartoExistente.setId_quarto(idQuarto);
         quartoExistente.setCodigo_quarto("101");
@@ -85,7 +85,7 @@ public class QuartoServiceTest {
 
     @Test
     public void testAtualizarQuartoExistente() {
-        Long idQuarto = 1L;
+        String idQuarto = "1";
         Quarto quartoExistente = new Quarto();
         quartoExistente.setId_quarto(idQuarto);
         quartoExistente.setCodigo_quarto("101");
@@ -114,7 +114,7 @@ public class QuartoServiceTest {
 
      @Test
     public void testDeletarQuarto() {
-        Long idQuarto = 1L;
+        String idQuarto = "1";
         doNothing().when(quartoRepository).deleteById(idQuarto);
 
         // Chama o método de deletar

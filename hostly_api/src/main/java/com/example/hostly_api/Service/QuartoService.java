@@ -14,7 +14,7 @@ public class QuartoService {
     private QuartoRepository quartoRepository;
 
     // Buscar quarto por ID
-    public Optional<Quarto> buscarPorId(Long id_quarto) {
+    public Optional<Quarto> buscarPorId(String id_quarto) {
         return quartoRepository.findById(id_quarto);
     }
 
@@ -29,7 +29,7 @@ public class QuartoService {
     }
 
     // Atualizar as informações do quarto
-    public Optional<Quarto> atualizar(Long id_quarto, Quarto dadosAtualizados) {
+    public Optional<Quarto> atualizar(String id_quarto, Quarto dadosAtualizados) {
         Optional<Quarto> quartoExistente = quartoRepository.findById(id_quarto);
 
         if (quartoExistente.isPresent()) {
@@ -48,7 +48,7 @@ public class QuartoService {
     }
 
     // Deletar um quarto
-    public void deletar(Long id_quarto) {
+    public void deletar(String id_quarto) {
         quartoRepository.deleteById(id_quarto);
     }
 }

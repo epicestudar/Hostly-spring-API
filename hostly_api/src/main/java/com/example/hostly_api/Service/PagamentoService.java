@@ -16,12 +16,12 @@ public class PagamentoService {
     private PagamentoRepository pagamentoRepository;
 
     // Buscar um pagamento por ID
-    public Optional<Pagamento> buscarPorId(Long id_pagamento) {
+    public Optional<Pagamento> buscarPorId(String id_pagamento) {
         return pagamentoRepository.findById(id_pagamento);
     }
 
     // Buscar um pagamento pelo ID da reserva
-    public Optional<Pagamento> buscarPorReserva(Long id_reserva) {
+    public Optional<Pagamento> buscarPorReserva(String id_reserva) {
         return pagamentoRepository.findByReserva_IdReserva(id_reserva);
     }
 
@@ -31,7 +31,7 @@ public class PagamentoService {
     }
 
     // Atualizar as informações do pagamento
-    public Optional<Pagamento> atualizar(Long id_pagamento, Pagamento dadosAtualizados) {
+    public Optional<Pagamento> atualizar(String id_pagamento, Pagamento dadosAtualizados) {
         Optional<Pagamento> pagamentoExistente = pagamentoRepository.findById(id_pagamento);
 
         if (pagamentoExistente.isPresent()) {
@@ -47,7 +47,7 @@ public class PagamentoService {
     }
 
     // Deletar um pagamento
-    public void deletar(Long id_pagamento) {
+    public void deletar(String id_pagamento) {
         pagamentoRepository.deleteById(id_pagamento);
     }
 }

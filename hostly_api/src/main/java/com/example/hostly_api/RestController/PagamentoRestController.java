@@ -26,7 +26,7 @@ public class PagamentoRestController {
 
     // Buscar pagamento por ID
     @GetMapping("/{id_pagamento}")
-    public ResponseEntity<Pagamento> buscarPorId(@PathVariable Long id_pagamento) {
+    public ResponseEntity<Pagamento> buscarPorId(@PathVariable String id_pagamento) {
         Optional<Pagamento> pagamento = pagamentoService.buscarPorId(id_pagamento);
         
         return pagamento.map(ResponseEntity::ok)
@@ -35,7 +35,7 @@ public class PagamentoRestController {
 
     // Buscar pagamento pelo ID da reserva
     @GetMapping("/reserva/{id_reserva}")
-    public ResponseEntity<Pagamento> buscarPorReserva(@PathVariable Long id_reserva) {
+    public ResponseEntity<Pagamento> buscarPorReserva(@PathVariable String id_reserva) {
         Optional<Pagamento> pagamento = pagamentoService.buscarPorReserva(id_reserva);
         
         return pagamento.map(ResponseEntity::ok)
@@ -51,7 +51,7 @@ public class PagamentoRestController {
 
     // Atualizar um pagamento
     @PutMapping("/{id_pagamento}")
-    public ResponseEntity<Pagamento> atualizar(@PathVariable Long id_pagamento, @RequestBody Pagamento dadosAtualizados) {
+    public ResponseEntity<Pagamento> atualizar(@PathVariable String id_pagamento, @RequestBody Pagamento dadosAtualizados) {
         try {
             Optional<Pagamento> pagamentoAtualizado = pagamentoService.atualizar(id_pagamento, dadosAtualizados);
             return pagamentoAtualizado.map(ResponseEntity::ok)
@@ -63,7 +63,7 @@ public class PagamentoRestController {
 
     // Deletar um pagamento
     @DeleteMapping("/{id_pagamento}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id_pagamento) {
+    public ResponseEntity<Void> deletar(@PathVariable String id_pagamento) {
         Optional<Pagamento> pagamento = pagamentoService.buscarPorId(id_pagamento);
         
         if (pagamento.isPresent()) {

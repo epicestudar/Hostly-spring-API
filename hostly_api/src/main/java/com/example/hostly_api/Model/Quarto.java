@@ -5,26 +5,25 @@ import com.example.hostly_api.Enum.TipoQuarto;
 import java.io.Serializable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
-@Entity
-@Table(name = "quartos")
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "quartos")
 @Getter
 @Setter
 public class Quarto implements Serializable{
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id_quarto;
+    private String id_quarto;
 
     @NotBlank(message = "O código do quarto é obrigatório")
     @Column(name = "codigo_quarto", length = 10, nullable = false, unique = true)

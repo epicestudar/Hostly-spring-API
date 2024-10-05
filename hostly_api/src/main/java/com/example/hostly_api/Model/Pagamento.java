@@ -8,17 +8,19 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.example.hostly_api.Enum.MetodoPagamento;
 
 @Entity
-@Table(name = "pagamentos")
+@Document(collection = "pagamentos")
 @Getter
 @Setter
 public class Pagamento implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_pagamento; // ID do pagamento
+    private String id_pagamento; // ID do pagamento
 
     @NotNull(message = "O ID da reserva é obrigatório")
     @ManyToOne(fetch = FetchType.LAZY) // Carregar a reserva apenas quando necessário

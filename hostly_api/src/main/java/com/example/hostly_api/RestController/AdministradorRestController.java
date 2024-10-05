@@ -28,7 +28,7 @@ public class AdministradorRestController {
 
     // Buscar administrador por ID
     @GetMapping("/{id_administrador}")
-    public ResponseEntity<Administrador> buscarPorId(@PathVariable Long id_administrador) {
+    public ResponseEntity<Administrador> buscarPorId(@PathVariable String id_administrador) {
         Optional<Administrador> administrador = administradorService.buscarPorId(id_administrador);
         
         return administrador.map(ResponseEntity::ok)
@@ -53,7 +53,7 @@ public class AdministradorRestController {
 
     // Atualizar um administrador
     @PutMapping("/{id_administrador}")
-    public ResponseEntity<Administrador> atualizar(@PathVariable Long id_administrador, @RequestBody Administrador dadosAtualizados) {
+    public ResponseEntity<Administrador> atualizar(@PathVariable String id_administrador, @RequestBody Administrador dadosAtualizados) {
         try {
             Optional<Administrador> administradorAtualizado = administradorService.atualizar(id_administrador, dadosAtualizados);
             return administradorAtualizado.map(ResponseEntity::ok)
@@ -65,7 +65,7 @@ public class AdministradorRestController {
 
     // Deletar um administrador
     @DeleteMapping("/{id_administrador}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id_administrador) {
+    public ResponseEntity<Void> deletar(@PathVariable String id_administrador) {
         Optional<Administrador> administrador = administradorService.buscarPorId(id_administrador);
         
         if (administrador.isPresent()) {

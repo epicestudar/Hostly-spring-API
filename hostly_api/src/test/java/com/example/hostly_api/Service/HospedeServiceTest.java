@@ -113,7 +113,7 @@ public class HospedeServiceTest {
     // Teste para atualizar um hóspede existente
     @Test
     public void testAtualizarHospedeExistente() {
-        Long idHospede = 1L;
+        String idHospede = "1";
         Hospede hospedeExistente = new Hospede();
         hospedeExistente.setId_hospede(idHospede);
         hospedeExistente.setNome("Ana");
@@ -135,7 +135,7 @@ public class HospedeServiceTest {
     // Teste para tentar atualizar um hóspede que não existe
     @Test
     public void testAtualizarHospedeNaoExistente() {
-        Long idHospede = 99L;
+        String idHospede = "99";
         Hospede dadosAtualizados = new Hospede();
         dadosAtualizados.setNome("João Atualizado");
 
@@ -153,7 +153,7 @@ public class HospedeServiceTest {
     // Teste para deletar um hóspede
     @Test
     public void testDeletarHospede() {
-        Long idHospede = 1L;
+        String idHospede = "1";
 
         doNothing().when(hospedeRepository).deleteById(idHospede);
 

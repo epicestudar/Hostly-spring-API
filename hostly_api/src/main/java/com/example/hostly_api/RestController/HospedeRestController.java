@@ -51,7 +51,7 @@ public class HospedeRestController {
 
      // Atualizar um hóspede
     @PutMapping("/{id_hospede}")
-    public ResponseEntity<Hospede> atualizar(@PathVariable Long id_hospede, @RequestBody Hospede dadosAtualizados) {
+    public ResponseEntity<Hospede> atualizar(@PathVariable String id_hospede, @RequestBody Hospede dadosAtualizados) {
         try {
             Optional<Hospede> hospedeAtualizado = hospedeService.atualizar(id_hospede, dadosAtualizados);
             return hospedeAtualizado.map(ResponseEntity::ok)
@@ -63,7 +63,7 @@ public class HospedeRestController {
 
     // Deletar um hóspede
     @DeleteMapping("/{id_hospede}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id_hospede) {
+    public ResponseEntity<Void> deletar(@PathVariable String id_hospede) {
         Optional<Hospede> hospede = hospedeService.buscarPorCpf(id_hospede.toString());
         
         if (hospede.isPresent()) {

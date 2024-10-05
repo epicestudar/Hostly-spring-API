@@ -40,7 +40,7 @@ public class PagamentoServiceTest {
     // Teste para buscar pagamento por ID
     @Test
     public void testBuscarPorIdPagamentoExistente() {
-        Long idPagamento = 1L;
+        String idPagamento = "1";
         Pagamento mockPagamento = new Pagamento();
         mockPagamento.setId_pagamento(idPagamento);
 
@@ -55,7 +55,7 @@ public class PagamentoServiceTest {
 
     @Test
     public void testBuscarPorIdPagamentoNaoExistente() {
-        Long idPagamento = 1L;
+        String idPagamento = "1";
 
         when(pagamentoRepository.findById(idPagamento)).thenReturn(Optional.empty());
 
@@ -68,22 +68,22 @@ public class PagamentoServiceTest {
     // Teste para buscar pagamento por ID da reserva
     @Test
     public void testBuscarPorReservaExistente() {
-        Long idReserva = 1L;
+        String idReserva = "1";
         Pagamento mockPagamento = new Pagamento();
-        mockPagamento.setId_pagamento(1L);
+        mockPagamento.setId_pagamento("1");
 
         when(pagamentoRepository.findByReserva_IdReserva(idReserva)).thenReturn(Optional.of(mockPagamento));
 
         Optional<Pagamento> resultado = pagamentoService.buscarPorReserva(idReserva);
 
         assertTrue(resultado.isPresent());
-        assertEquals(1L, resultado.get().getId_pagamento());
+        assertEquals("1", resultado.get().getId_pagamento());
         verify(pagamentoRepository, times(1)).findByReserva_IdReserva(idReserva);
     }
 
     @Test
     public void testBuscarPorReservaNaoExistente() {
-        Long idReserva = 1L;
+        String idReserva = "1";
 
         when(pagamentoRepository.findByReserva_IdReserva(idReserva)).thenReturn(Optional.empty());
 
@@ -111,7 +111,7 @@ public class PagamentoServiceTest {
     // Teste para atualizar um pagamento existente
     @Test
 public void testAtualizarPagamentoExistente() {
-    Long idPagamento = 1L;
+    String idPagamento = "1";
     Pagamento pagamentoExistente = new Pagamento();
     pagamentoExistente.setId_pagamento(idPagamento);
     pagamentoExistente.setMetodo_pagamento(MetodoPagamento.BOLETO);  // Valor original
@@ -135,7 +135,7 @@ public void testAtualizarPagamentoExistente() {
     // Teste para tentar atualizar um pagamento que não existe
     @Test
     public void testAtualizarPagamentoNaoExistente() {
-        Long idPagamento = 99L;
+        String idPagamento = "99";
         Pagamento dadosAtualizados = new Pagamento();
         dadosAtualizados.setMetodo_pagamento(MetodoPagamento.valueOf("PIX"));
 
@@ -153,7 +153,7 @@ public void testAtualizarPagamentoExistente() {
     // Teste para deletar um pagamento
     @Test
     public void testDeletarPagamento() {
-        Long idPagamento = 1L;
+        String idPagamento = "1";
 
         doNothing().when(pagamentoRepository).deleteById(idPagamento);
 

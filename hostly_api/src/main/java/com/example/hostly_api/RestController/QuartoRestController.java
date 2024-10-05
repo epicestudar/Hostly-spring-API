@@ -26,7 +26,7 @@ public class QuartoRestController {
 
     // Buscar quarto por ID
     @GetMapping("/{id_quarto}")
-    public ResponseEntity<Quarto> buscarPorId(@PathVariable Long id_quarto) {
+    public ResponseEntity<Quarto> buscarPorId(@PathVariable String id_quarto) {
         Optional<Quarto> quarto = quartoService.buscarPorId(id_quarto);
         
         return quarto.map(ResponseEntity::ok)
@@ -51,7 +51,7 @@ public class QuartoRestController {
 
     // Atualizar um quarto
     @PutMapping("/{id_quarto}")
-    public ResponseEntity<Quarto> atualizar(@PathVariable Long id_quarto, @RequestBody Quarto dadosAtualizados) {
+    public ResponseEntity<Quarto> atualizar(@PathVariable String id_quarto, @RequestBody Quarto dadosAtualizados) {
         try {
             Optional<Quarto> quartoAtualizado = quartoService.atualizar(id_quarto, dadosAtualizados);
             return quartoAtualizado.map(ResponseEntity::ok)
@@ -63,7 +63,7 @@ public class QuartoRestController {
 
     // Deletar um quarto
     @DeleteMapping("/{id_quarto}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id_quarto) {
+    public ResponseEntity<Void> deletar(@PathVariable String id_quarto) {
         Optional<Quarto> quarto = quartoService.buscarPorId(id_quarto);
         
         if (quarto.isPresent()) {
