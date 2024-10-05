@@ -1,0 +1,3 @@
+3. Segurança:
+Autenticação e Autorização: Adicionar um sistema de segurança usando Spring Security para proteger rotas específicas, como os endpoints de administrador e pagamento.
+Implementar o sistema de login para os administradores e hóspedes, garantindo que apenas usuários autenticados possam acessar certas funcionalidades.
