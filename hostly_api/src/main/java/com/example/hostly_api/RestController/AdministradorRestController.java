@@ -1,5 +1,6 @@
 package com.example.hostly_api.RestController;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hostly_api.Model.Administrador;
 import com.example.hostly_api.Service.AdministradorService;
 
-import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,9 +27,9 @@ public class AdministradorRestController {
     private AdministradorService administradorService;
 
     // Buscar administrador por ID
-    @GetMapping("/{id_administrador}")
-    public ResponseEntity<Administrador> buscarPorId(@PathVariable String id_administrador) {
-        Optional<Administrador> administrador = administradorService.buscarPorId(id_administrador);
+    @GetMapping("/{id}")
+    public ResponseEntity<Administrador> buscarPorId(@PathVariable String id) {
+        Optional<Administrador> administrador = administradorService.buscarPorId(id);
         
         return administrador.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -52,24 +52,24 @@ public class AdministradorRestController {
     }
 
     // Atualizar um administrador
-    @PutMapping("/{id_administrador}")
-    public ResponseEntity<Administrador> atualizar(@PathVariable String id_administrador, @RequestBody Administrador dadosAtualizados) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Administrador> atualizar(@PathVariable String id, @RequestBody Administrador dadosAtualizados) {
         try {
-            Optional<Administrador> administradorAtualizado = administradorService.atualizar(id_administrador, dadosAtualizados);
+            Optional<Administrador> administradorAtualizado = administradorService.atualizar(id, dadosAtualizados);
             return administradorAtualizado.map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
-        } catch (EntityNotFoundException e) {
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     // Deletar um administrador
-    @DeleteMapping("/{id_administrador}")
-    public ResponseEntity<Void> deletar(@PathVariable String id_administrador) {
-        Optional<Administrador> administrador = administradorService.buscarPorId(id_administrador);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
+        Optional<Administrador> administrador = administradorService.buscarPorId(id);
         
         if (administrador.isPresent()) {
-            administradorService.deletar(id_administrador);
+            administradorService.deletar(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

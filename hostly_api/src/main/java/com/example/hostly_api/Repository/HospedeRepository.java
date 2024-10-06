@@ -8,6 +8,7 @@ import com.example.hostly_api.Model.Hospede;
 
 @Repository
 public interface HospedeRepository extends MongoRepository<Hospede, String>{
+    Optional<Hospede> findById(String id);  // Buscar pelo ID
     Optional<Hospede> findByEmail(String email);
     Optional<Hospede> findByCpf(String cpf);
 }

@@ -35,93 +35,93 @@ public class QuartoServiceTest {
 
     @Test
     public void testBuscarQuartoPorId() {
-        String idQuarto = "1";
+        String id = "1";
         Quarto quartoExistente = new Quarto();
-        quartoExistente.setId_quarto(idQuarto);
-        quartoExistente.setCodigo_quarto("101");
+        quartoExistente.setId(id);
+        quartoExistente.setCodigoQuarto("101");
 
-        when(quartoRepository.findById(idQuarto)).thenReturn(Optional.of(quartoExistente));
+        when(quartoRepository.findById(id)).thenReturn(Optional.of(quartoExistente));
 
-        Optional<Quarto> resultado = quartoService.buscarPorId(idQuarto);
+        Optional<Quarto> resultado = quartoService.buscarPorId(id);
 
         assertTrue(resultado.isPresent());
-        assertEquals("101", resultado.get().getCodigo_quarto());
-        verify(quartoRepository, times(1)).findById(idQuarto);
+        assertEquals("101", resultado.get().getCodigoQuarto());
+        verify(quartoRepository, times(1)).findById(id);
     }
 
     @Test
     public void testBuscarQuartoPorCodigo() {
         String codigoQuarto = "101";
         Quarto quartoExistente = new Quarto();
-        quartoExistente.setCodigo_quarto(codigoQuarto);
-        quartoExistente.setTipo_quarto(TipoQuarto.SUITE);
+        quartoExistente.setCodigoQuarto(codigoQuarto);
+        quartoExistente.setTipoQuarto(TipoQuarto.SUITE);
 
         when(quartoRepository.findByCodigoQuarto(codigoQuarto)).thenReturn(Optional.of(quartoExistente));
 
         Optional<Quarto> resultado = quartoService.buscarPorCodigo(codigoQuarto);
 
         assertTrue(resultado.isPresent());
-        assertEquals(TipoQuarto.SUITE, resultado.get().getTipo_quarto());
+        assertEquals(TipoQuarto.SUITE, resultado.get().getTipoQuarto());
         verify(quartoRepository, times(1)).findByCodigoQuarto(codigoQuarto);
     }
 
     @Test
     public void testSalvarQuarto() {
         Quarto novoQuarto = new Quarto();
-        novoQuarto.setCodigo_quarto("101");
-        novoQuarto.setTipo_quarto(TipoQuarto.SUITE);
-        novoQuarto.setCapacidade_quarto(2);
-        novoQuarto.setValor_quarto(200.00);
+        novoQuarto.setCodigoQuarto("101");
+        novoQuarto.setTipoQuarto(TipoQuarto.SUITE);
+        novoQuarto.setCapacidadeQuarto(2);
+        novoQuarto.setValorQuarto(200.00);
         novoQuarto.setStatus(StatusQuarto.DISPONIVEL);
 
         when(quartoRepository.save(novoQuarto)).thenReturn(novoQuarto);
 
         Quarto resultado = quartoService.salvar(novoQuarto);
 
-        assertEquals("101", resultado.getCodigo_quarto());
-        assertEquals(TipoQuarto.SUITE, resultado.getTipo_quarto());
+        assertEquals("101", resultado.getCodigoQuarto());
+        assertEquals(TipoQuarto.SUITE, resultado.getTipoQuarto());
         verify(quartoRepository, times(1)).save(novoQuarto);
     }
 
     @Test
     public void testAtualizarQuartoExistente() {
-        String idQuarto = "1";
+        String id = "1";
         Quarto quartoExistente = new Quarto();
-        quartoExistente.setId_quarto(idQuarto);
-        quartoExistente.setCodigo_quarto("101");
-        quartoExistente.setTipo_quarto(TipoQuarto.SUITE);
-        quartoExistente.setCapacidade_quarto(2);
-        quartoExistente.setValor_quarto(200.00);
+        quartoExistente.setId(id);
+        quartoExistente.setCodigoQuarto("101");
+        quartoExistente.setTipoQuarto(TipoQuarto.SUITE);
+        quartoExistente.setCapacidadeQuarto(2);
+        quartoExistente.setValorQuarto(200.00);
         quartoExistente.setStatus(StatusQuarto.DISPONIVEL);
 
         Quarto dadosAtualizados = new Quarto();
-        dadosAtualizados.setCodigo_quarto("102");
-        dadosAtualizados.setTipo_quarto(TipoQuarto.DUPLEX);
-        dadosAtualizados.setCapacidade_quarto(4);
-        dadosAtualizados.setValor_quarto(400.00);
+        dadosAtualizados.setCodigoQuarto("102");
+        dadosAtualizados.setTipoQuarto(TipoQuarto.DUPLEX);
+        dadosAtualizados.setCapacidadeQuarto(4);
+        dadosAtualizados.setValorQuarto(400.00);
         dadosAtualizados.setStatus(StatusQuarto.RESERVADO);
 
-        when(quartoRepository.findById(idQuarto)).thenReturn(Optional.of(quartoExistente));
+        when(quartoRepository.findById(id)).thenReturn(Optional.of(quartoExistente));
         when(quartoRepository.save(any(Quarto.class))).thenReturn(quartoExistente);
 
-        Optional<Quarto> resultado = quartoService.atualizar(idQuarto, dadosAtualizados);
+        Optional<Quarto> resultado = quartoService.atualizar(id, dadosAtualizados);
 
         assertTrue(resultado.isPresent());
-        assertEquals(TipoQuarto.DUPLEX, resultado.get().getTipo_quarto());  // Verifica se o tipo do quarto não mudou
-        verify(quartoRepository, times(1)).findById(idQuarto);
+        assertEquals(TipoQuarto.DUPLEX, resultado.get().getTipoQuarto());  // Verifica se o tipo do quarto não mudou
+        verify(quartoRepository, times(1)).findById(id);
         verify(quartoRepository, times(1)).save(quartoExistente);
     }
 
      @Test
     public void testDeletarQuarto() {
-        String idQuarto = "1";
-        doNothing().when(quartoRepository).deleteById(idQuarto);
+        String id = "1";
+        doNothing().when(quartoRepository).deleteById(id);
 
         // Chama o método de deletar
-        quartoService.deletar(idQuarto);
+        quartoService.deletar(id);
 
         // Verifica se o método deleteById foi chamado corretamente
-        verify(quartoRepository, times(1)).deleteById(idQuarto);
+        verify(quartoRepository, times(1)).deleteById(id);
     }
 
 

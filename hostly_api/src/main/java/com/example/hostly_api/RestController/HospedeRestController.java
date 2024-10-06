@@ -1,5 +1,6 @@
 package com.example.hostly_api.RestController;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hostly_api.Model.Hospede;
 import com.example.hostly_api.Service.HospedeService;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/hospedes")
@@ -41,6 +41,14 @@ public class HospedeRestController {
         return hospede.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Hospede> buscarPorId(@PathVariable String id) {
+        Optional<Hospede> hospede = hospedeService.buscarPorId(id);
+        
+        return hospede.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     // Salvar um novo hóspede
     @PostMapping
@@ -50,27 +58,28 @@ public class HospedeRestController {
     }
 
      // Atualizar um hóspede
-    @PutMapping("/{id_hospede}")
-    public ResponseEntity<Hospede> atualizar(@PathVariable String id_hospede, @RequestBody Hospede dadosAtualizados) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Hospede> atualizar(@PathVariable String id, @RequestBody Hospede dadosAtualizados) {
         try {
-            Optional<Hospede> hospedeAtualizado = hospedeService.atualizar(id_hospede, dadosAtualizados);
+            Optional<Hospede> hospedeAtualizado = hospedeService.atualizar(id, dadosAtualizados);
             return hospedeAtualizado.map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
-        } catch (EntityNotFoundException e) {
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     // Deletar um hóspede
-    @DeleteMapping("/{id_hospede}")
-    public ResponseEntity<Void> deletar(@PathVariable String id_hospede) {
-        Optional<Hospede> hospede = hospedeService.buscarPorCpf(id_hospede.toString());
-        
-        if (hospede.isPresent()) {
-            hospedeService.deletar(id_hospede);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @DeleteMapping("/{id}")
+public ResponseEntity<Void> deletar(@PathVariable String id) {
+    Optional<Hospede> hospede = hospedeService.buscarPorId(id);  // Buscar pelo id, não pelo CPF
+    
+    if (hospede.isPresent()) {
+        hospedeService.deletar(id);  // Deletar pelo id
+        return ResponseEntity.noContent().build();
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
+
 }

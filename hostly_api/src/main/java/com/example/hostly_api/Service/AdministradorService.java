@@ -1,5 +1,6 @@
 package com.example.hostly_api.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +9,14 @@ import org.springframework.stereotype.Service;
 import com.example.hostly_api.Model.Administrador;
 import com.example.hostly_api.Repository.AdministradorRepository;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class AdministradorService {
     @Autowired
     private AdministradorRepository administradorRepository;
 
     // Buscar administrador por ID
-    public Optional<Administrador> buscarPorId(String id_administrador) {
-        return administradorRepository.findById(id_administrador);
+    public Optional<Administrador> buscarPorId(String id) {
+        return administradorRepository.findById(id);
     }
 
     // Buscar administrador por email
@@ -31,8 +30,8 @@ public class AdministradorService {
     }
 
    // Atualizar um administrador
-   public Optional<Administrador> atualizar(String id_administrador, Administrador dadosAtualizados) {
-    Optional<Administrador> administradorExistente = administradorRepository.findById(id_administrador);
+   public Optional<Administrador> atualizar(String id, Administrador dadosAtualizados) {
+    Optional<Administrador> administradorExistente = administradorRepository.findById(id);
 
     if (administradorExistente.isPresent()) {
         Administrador admin = administradorExistente.get();
@@ -43,11 +42,11 @@ public class AdministradorService {
         return Optional.of(administradorRepository.save(admin));
     }
 
-    throw new EntityNotFoundException("Administrador não encontrado com o ID: " + id_administrador);
+    throw new NoSuchElementException("Administrador não encontrado com o ID: " + id);
 }
 
     // Deletar um administrador
-    public void deletar(String id_administrador) {
-        administradorRepository.deleteById(id_administrador);
+    public void deletar(String id) {
+        administradorRepository.deleteById(id);
     }
 }

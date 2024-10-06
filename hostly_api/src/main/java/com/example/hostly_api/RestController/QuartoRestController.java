@@ -1,5 +1,6 @@
 package com.example.hostly_api.RestController;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hostly_api.Model.Quarto;
 import com.example.hostly_api.Service.QuartoService;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/quartos")
@@ -25,9 +25,9 @@ public class QuartoRestController {
     private QuartoService quartoService;
 
     // Buscar quarto por ID
-    @GetMapping("/{id_quarto}")
-    public ResponseEntity<Quarto> buscarPorId(@PathVariable String id_quarto) {
-        Optional<Quarto> quarto = quartoService.buscarPorId(id_quarto);
+    @GetMapping("/{id}")
+    public ResponseEntity<Quarto> buscarPorId(@PathVariable String id) {
+        Optional<Quarto> quarto = quartoService.buscarPorId(id);
         
         return quarto.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -50,24 +50,24 @@ public class QuartoRestController {
     }
 
     // Atualizar um quarto
-    @PutMapping("/{id_quarto}")
-    public ResponseEntity<Quarto> atualizar(@PathVariable String id_quarto, @RequestBody Quarto dadosAtualizados) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Quarto> atualizar(@PathVariable String id, @RequestBody Quarto dadosAtualizados) {
         try {
-            Optional<Quarto> quartoAtualizado = quartoService.atualizar(id_quarto, dadosAtualizados);
+            Optional<Quarto> quartoAtualizado = quartoService.atualizar(id, dadosAtualizados);
             return quartoAtualizado.map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
-        } catch (EntityNotFoundException e) {
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     // Deletar um quarto
-    @DeleteMapping("/{id_quarto}")
-    public ResponseEntity<Void> deletar(@PathVariable String id_quarto) {
-        Optional<Quarto> quarto = quartoService.buscarPorId(id_quarto);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
+        Optional<Quarto> quarto = quartoService.buscarPorId(id);
         
         if (quarto.isPresent()) {
-            quartoService.deletar(id_quarto);
+            quartoService.deletar(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

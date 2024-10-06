@@ -1,16 +1,12 @@
 package com.example.hostly_api.Model;
 
 import java.io.Serializable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
+import org.springframework.data.annotation.Id;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,48 +19,31 @@ import com.example.hostly_api.Enum.StatusReserva;
 @Document(collection = "reservas")
 @Getter
 @Setter
-public class Reserva implements Serializable{
+public class Reserva implements Serializable {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private String id_reserva;
+    private String id;
 
     @NotNull(message = "O código do quarto é obrigatório")
-    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY) // isso significa que as entidades associadas só serão
-                                                           // carregadas quando realmente forem acessadas, o que é uma
-                                                           // boa prática para melhorar o desempenho.
-    @JoinColumn(name = "codigo_quarto", referencedColumnName = "codigo_quarto", nullable = false)
     private Quarto quarto;
 
     @NotNull(message = "O cpf do hospede é obrigatório")
-    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY) // isso significa que as entidades associadas só serão
-                                                           // carregadas quando realmente forem acessadas, o que é uma
-                                                           // boa prática para melhorar o desempenho.
-    @JoinColumn(name = "cpf_hospede", referencedColumnName = "cpf", nullable = false)
     private Hospede hospede;
 
     @NotNull(message = "O nome do hospede é obrigatório")
-    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY) // isso significa que as entidades associadas também
-    @JoinColumn(name = "nome_hospede", referencedColumnName = "nome", nullable = false)                
-    private String nome_hospede;
+    private String nomeHospede; // Mantenha apenas como String
 
-    @NotNull(message = "A quantidade de diarias é obrigatório")
-    @Column(name = "quantidade_diarias", nullable = false)
+    @NotNull(message = "A quantidade de diarias é obrigatória")
     @Min(value = 1, message = "A quantidade mínima de diárias é 1")
     @Max(value = 30, message = "A quantidade máxima de diárias é 30")
-    private Integer quantidade_diarias;
+    private Integer quantidadeDiarias;
 
     @NotNull(message = "A data de check-in é obrigatória")
-    @Column(name = "data_check_in", nullable = false)
-    private LocalDate data_check_in;
+    private LocalDate dataCheckIn;
 
-    @NotNull(message = "A data de check-out é obrigatoria")
-    @Column(name = "data_check_out", nullable = false)
-    private LocalDate data_check_out;
+    @NotNull(message = "A data de check-out é obrigatória")
+    private LocalDate dataCheckOut;
 
-    @Enumerated(jakarta.persistence.EnumType.STRING) // Define que o valor será salvo como uma string no banco
-    @Column(name = "status_reserva", length = 10, nullable = false)
     private StatusReserva status = StatusReserva.PENDENTE;
 
-    @Column(name = "data_reserva", nullable = false)
-    private Data data_reserva;
+    private LocalDate dataReserva; 
 }

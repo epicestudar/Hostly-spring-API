@@ -8,5 +8,5 @@ import com.example.hostly_api.Model.Pagamento;
 
 @Repository
 public interface PagamentoRepository extends MongoRepository<Pagamento, String> {
-Optional<Pagamento> findByReserva_IdReserva(String id_reserva);
+    Optional<Pagamento> findByReserva_Id(String id);
 }

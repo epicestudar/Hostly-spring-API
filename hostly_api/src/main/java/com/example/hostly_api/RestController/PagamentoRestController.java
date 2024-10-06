@@ -1,5 +1,6 @@
 package com.example.hostly_api.RestController;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hostly_api.Model.Pagamento;
 import com.example.hostly_api.Service.PagamentoService;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/pagamentos")
@@ -25,9 +25,9 @@ public class PagamentoRestController {
     private PagamentoService pagamentoService;
 
     // Buscar pagamento por ID
-    @GetMapping("/{id_pagamento}")
-    public ResponseEntity<Pagamento> buscarPorId(@PathVariable String id_pagamento) {
-        Optional<Pagamento> pagamento = pagamentoService.buscarPorId(id_pagamento);
+    @GetMapping("/{id}")
+    public ResponseEntity<Pagamento> buscarPorId(@PathVariable String id) {
+        Optional<Pagamento> pagamento = pagamentoService.buscarPorId(id);
         
         return pagamento.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -50,24 +50,24 @@ public class PagamentoRestController {
     }
 
     // Atualizar um pagamento
-    @PutMapping("/{id_pagamento}")
-    public ResponseEntity<Pagamento> atualizar(@PathVariable String id_pagamento, @RequestBody Pagamento dadosAtualizados) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Pagamento> atualizar(@PathVariable String id, @RequestBody Pagamento dadosAtualizados) {
         try {
-            Optional<Pagamento> pagamentoAtualizado = pagamentoService.atualizar(id_pagamento, dadosAtualizados);
+            Optional<Pagamento> pagamentoAtualizado = pagamentoService.atualizar(id, dadosAtualizados);
             return pagamentoAtualizado.map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
-        } catch (EntityNotFoundException e) {
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     // Deletar um pagamento
-    @DeleteMapping("/{id_pagamento}")
-    public ResponseEntity<Void> deletar(@PathVariable String id_pagamento) {
-        Optional<Pagamento> pagamento = pagamentoService.buscarPorId(id_pagamento);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable String id) {
+        Optional<Pagamento> pagamento = pagamentoService.buscarPorId(id);
         
         if (pagamento.isPresent()) {
-            pagamentoService.deletar(id_pagamento);
+            pagamentoService.deletar(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

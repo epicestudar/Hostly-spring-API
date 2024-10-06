@@ -11,6 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +22,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.example.hostly_api.Model.Hospede;
 import com.example.hostly_api.Repository.HospedeRepository;
-
-import jakarta.persistence.EntityNotFoundException;
 
 public class HospedeServiceTest {
 @InjectMocks
@@ -113,52 +112,52 @@ public class HospedeServiceTest {
     // Teste para atualizar um hóspede existente
     @Test
     public void testAtualizarHospedeExistente() {
-        String idHospede = "1";
+        String id = "1";
         Hospede hospedeExistente = new Hospede();
-        hospedeExistente.setId_hospede(idHospede);
+        hospedeExistente.setId(id);
         hospedeExistente.setNome("Ana");
 
         Hospede dadosAtualizados = new Hospede();
         dadosAtualizados.setNome("Ana Maria");
 
-        when(hospedeRepository.findById(idHospede)).thenReturn(Optional.of(hospedeExistente));
+        when(hospedeRepository.findById(id)).thenReturn(Optional.of(hospedeExistente));
         when(hospedeRepository.save(any(Hospede.class))).thenReturn(hospedeExistente);
 
-        Optional<Hospede> resultado = hospedeService.atualizar(idHospede, dadosAtualizados);
+        Optional<Hospede> resultado = hospedeService.atualizar(id, dadosAtualizados);
 
         assertTrue(resultado.isPresent());
         assertEquals("Ana Maria", resultado.get().getNome());
-        verify(hospedeRepository, times(1)).findById(idHospede);
+        verify(hospedeRepository, times(1)).findById(id);
         verify(hospedeRepository, times(1)).save(hospedeExistente);
     }
 
     // Teste para tentar atualizar um hóspede que não existe
     @Test
     public void testAtualizarHospedeNaoExistente() {
-        String idHospede = "99";
+        String id = "99";
         Hospede dadosAtualizados = new Hospede();
         dadosAtualizados.setNome("João Atualizado");
 
-        when(hospedeRepository.findById(idHospede)).thenReturn(Optional.empty());
+        when(hospedeRepository.findById(id)).thenReturn(Optional.empty());
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
-            hospedeService.atualizar(idHospede, dadosAtualizados);
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            hospedeService.atualizar(id, dadosAtualizados);
         });
 
-        assertEquals("Hóspede não encontrado com o ID: " + idHospede, exception.getMessage());
-        verify(hospedeRepository, times(1)).findById(idHospede);
+        assertEquals("Hóspede não encontrado com o ID: " + id, exception.getMessage());
+        verify(hospedeRepository, times(1)).findById(id);
         verify(hospedeRepository, never()).save(any(Hospede.class));
     }
 
     // Teste para deletar um hóspede
     @Test
     public void testDeletarHospede() {
-        String idHospede = "1";
+        String id = "1";
 
-        doNothing().when(hospedeRepository).deleteById(idHospede);
+        doNothing().when(hospedeRepository).deleteById(id);
 
-        hospedeService.deletar(idHospede);
+        hospedeService.deletar(id);
 
-        verify(hospedeRepository, times(1)).deleteById(idHospede);
+        verify(hospedeRepository, times(1)).deleteById(id);
     }
 }

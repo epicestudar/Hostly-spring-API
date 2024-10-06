@@ -3,49 +3,36 @@ package com.example.hostly_api.Model;
 import com.example.hostly_api.Enum.StatusQuarto;
 import com.example.hostly_api.Enum.TipoQuarto;
 import java.io.Serializable;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import org.springframework.data.annotation.Id;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "quartos")
 @Getter
 @Setter
-public class Quarto implements Serializable{
+public class Quarto implements Serializable {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private String id_quarto;
+    private String id; // O MongoDB vai gerar o ID automaticamente se for uma String
 
     @NotBlank(message = "O código do quarto é obrigatório")
-    @Column(name = "codigo_quarto", length = 10, nullable = false, unique = true)
-    private String codigo_quarto;
+    private String codigoQuarto;
 
-    @Enumerated(jakarta.persistence.EnumType.STRING) // Salvar como string no banco
-    @Column(name = "tipo_quarto", nullable = false)
-    private TipoQuarto tipo_quarto = TipoQuarto.STANDARD;
+    // O MongoDB irá armazenar automaticamente como string
+    private TipoQuarto tipoQuarto = TipoQuarto.STANDARD;
 
-    @NotNull(message = "A capacidade do quarto é obrigatório")
-    @Column(name = "capacidade_quarto", length = 3, nullable = false)
-    private Integer capacidade_quarto;
+    @NotNull(message = "A capacidade do quarto é obrigatória")
+    private Integer capacidadeQuarto;
 
     @NotNull(message = "O valor do quarto é obrigatório")
-    @Column(name = "valor_quarto", precision = 10, scale = 2, nullable = false)
-    private Double valor_quarto;
+    private Double valorQuarto;
 
-    @Enumerated(jakarta.persistence.EnumType.STRING) // Define que o valor será salvo como uma string no banco
-    @Column(name = "status_quarto", length = 10, nullable = false)
-    private StatusQuarto status = StatusQuarto.DISPONIVEL; // Define o valor default como DISPONIVEL
+    // O MongoDB irá armazenar automaticamente como string
+    private StatusQuarto status = StatusQuarto.DISPONIVEL;
 
-    @OneToMany(mappedBy = "quarto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reservas;
-
 }

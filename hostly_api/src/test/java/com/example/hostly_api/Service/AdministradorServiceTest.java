@@ -3,6 +3,8 @@ package com.example.hostly_api.Service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.example.hostly_api.Model.Administrador;
@@ -13,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import jakarta.persistence.EntityNotFoundException;
 
 public class AdministradorServiceTest {
     @InjectMocks
@@ -29,30 +30,30 @@ public class AdministradorServiceTest {
 
     @Test
     public void testBuscarPorIdAdministradorExistente() {
-        String idAdministrador = "1";
+        String id = "1";
         Administrador mockAdministrador = new Administrador();
-        mockAdministrador.setId_administrador(idAdministrador);
+        mockAdministrador.setId(id);
         mockAdministrador.setEmail("admin@example.com");
 
-        when(administradorRepository.findById(idAdministrador)).thenReturn(Optional.of(mockAdministrador));
+        when(administradorRepository.findById(id)).thenReturn(Optional.of(mockAdministrador));
 
-        Optional<Administrador> resultado = administradorService.buscarPorId(idAdministrador);
+        Optional<Administrador> resultado = administradorService.buscarPorId(id);
 
         assertTrue(resultado.isPresent());
         assertEquals("admin@example.com", resultado.get().getEmail());
-        verify(administradorRepository, times(1)).findById(idAdministrador);
+        verify(administradorRepository, times(1)).findById(id);
     }
 
     @Test
     public void testBuscarPorIdAdministradorNaoExistente() {
-        String idAdministrador = "99";
+        String id = "99";
 
-        when(administradorRepository.findById(idAdministrador)).thenReturn(Optional.empty());
+        when(administradorRepository.findById(id)).thenReturn(Optional.empty());
 
-        Optional<Administrador> resultado = administradorService.buscarPorId(idAdministrador);
+        Optional<Administrador> resultado = administradorService.buscarPorId(id);
 
         assertFalse(resultado.isPresent());
-        verify(administradorRepository, times(1)).findById(idAdministrador);
+        verify(administradorRepository, times(1)).findById(id);
     }
 
     @Test
@@ -70,51 +71,51 @@ public class AdministradorServiceTest {
 
     @Test
     public void testAtualizarAdministradorExistente() {
-        String idAdministrador = "1";
+        String id = "1";
         Administrador administradorExistente = new Administrador();
-        administradorExistente.setId_administrador(idAdministrador);
+        administradorExistente.setId(id);
         administradorExistente.setEmail("admin@example.com");
 
         Administrador dadosAtualizados = new Administrador();
         dadosAtualizados.setEmail("adminatualizado@example.com");
 
-        when(administradorRepository.findById(idAdministrador)).thenReturn(Optional.of(administradorExistente));
+        when(administradorRepository.findById(id)).thenReturn(Optional.of(administradorExistente));
         when(administradorRepository.save(any(Administrador.class))).thenReturn(administradorExistente);
 
-        Optional<Administrador> resultado = administradorService.atualizar(idAdministrador, dadosAtualizados);
+        Optional<Administrador> resultado = administradorService.atualizar(id, dadosAtualizados);
 
         assertTrue(resultado.isPresent());
         assertEquals("adminatualizado@example.com", resultado.get().getEmail());
-        verify(administradorRepository, times(1)).findById(idAdministrador);
+        verify(administradorRepository, times(1)).findById(id);
         verify(administradorRepository, times(1)).save(administradorExistente);
     }
 
     @Test
     public void testAtualizarAdministradorNaoExistente() {
-        String idAdministrador = "99";
+        String id = "99";
         Administrador dadosAtualizados = new Administrador();
         dadosAtualizados.setEmail("adminatualizado@example.com");
 
-        when(administradorRepository.findById(idAdministrador)).thenReturn(Optional.empty());
+        when(administradorRepository.findById(id)).thenReturn(Optional.empty());
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
-            administradorService.atualizar(idAdministrador, dadosAtualizados);
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            administradorService.atualizar(id, dadosAtualizados);
         });
 
-        assertEquals("Administrador não encontrado com o ID: " + idAdministrador, exception.getMessage());
-        verify(administradorRepository, times(1)).findById(idAdministrador);
+        assertEquals("Administrador não encontrado com o ID: " + id, exception.getMessage());
+        verify(administradorRepository, times(1)).findById(id);
         verify(administradorRepository, never()).save(any(Administrador.class));
     }
 
     @Test
     public void testDeletarAdministrador() {
-        String idAdministrador = "1";
-        doNothing().when(administradorRepository).deleteById(idAdministrador);
+        String id = "1";
+        doNothing().when(administradorRepository).deleteById(id);
 
         // Chama o método de deletar
-        administradorService.deletar(idAdministrador);
+        administradorService.deletar(id);
 
         // Verifica se o método deleteById foi chamado corretamente
-        verify(administradorRepository, times(1)).deleteById(idAdministrador);
+        verify(administradorRepository, times(1)).deleteById(id);
     }
 }

@@ -11,6 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,6 @@ import com.example.hostly_api.Enum.MetodoPagamento;
 import com.example.hostly_api.Model.Pagamento;
 import com.example.hostly_api.Repository.PagamentoRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 
 public class PagamentoServiceTest {
     @InjectMocks
@@ -40,70 +40,70 @@ public class PagamentoServiceTest {
     // Teste para buscar pagamento por ID
     @Test
     public void testBuscarPorIdPagamentoExistente() {
-        String idPagamento = "1";
+        String id = "1";
         Pagamento mockPagamento = new Pagamento();
-        mockPagamento.setId_pagamento(idPagamento);
+        mockPagamento.setId(id);
 
-        when(pagamentoRepository.findById(idPagamento)).thenReturn(Optional.of(mockPagamento));
+        when(pagamentoRepository.findById(id)).thenReturn(Optional.of(mockPagamento));
 
-        Optional<Pagamento> resultado = pagamentoService.buscarPorId(idPagamento);
+        Optional<Pagamento> resultado = pagamentoService.buscarPorId(id);
 
         assertTrue(resultado.isPresent());
-        assertEquals(idPagamento, resultado.get().getId_pagamento());
-        verify(pagamentoRepository, times(1)).findById(idPagamento);
+        assertEquals(id, resultado.get().getId());
+        verify(pagamentoRepository, times(1)).findById(id);
     }
 
     @Test
     public void testBuscarPorIdPagamentoNaoExistente() {
-        String idPagamento = "1";
+        String id = "1";
 
-        when(pagamentoRepository.findById(idPagamento)).thenReturn(Optional.empty());
+        when(pagamentoRepository.findById(id)).thenReturn(Optional.empty());
 
-        Optional<Pagamento> resultado = pagamentoService.buscarPorId(idPagamento);
+        Optional<Pagamento> resultado = pagamentoService.buscarPorId(id);
 
         assertFalse(resultado.isPresent());
-        verify(pagamentoRepository, times(1)).findById(idPagamento);
+        verify(pagamentoRepository, times(1)).findById(id);
     }
 
     // Teste para buscar pagamento por ID da reserva
     @Test
     public void testBuscarPorReservaExistente() {
-        String idReserva = "1";
+        String id = "1";
         Pagamento mockPagamento = new Pagamento();
-        mockPagamento.setId_pagamento("1");
+        mockPagamento.setId("1");
 
-        when(pagamentoRepository.findByReserva_IdReserva(idReserva)).thenReturn(Optional.of(mockPagamento));
+        when(pagamentoRepository.findByReserva_Id(id)).thenReturn(Optional.of(mockPagamento));
 
-        Optional<Pagamento> resultado = pagamentoService.buscarPorReserva(idReserva);
+        Optional<Pagamento> resultado = pagamentoService.buscarPorReserva(id);
 
         assertTrue(resultado.isPresent());
-        assertEquals("1", resultado.get().getId_pagamento());
-        verify(pagamentoRepository, times(1)).findByReserva_IdReserva(idReserva);
+        assertEquals("1", resultado.get().getId());
+        verify(pagamentoRepository, times(1)).findByReserva_Id(id);
     }
 
     @Test
     public void testBuscarPorReservaNaoExistente() {
-        String idReserva = "1";
+        String id = "1";
 
-        when(pagamentoRepository.findByReserva_IdReserva(idReserva)).thenReturn(Optional.empty());
+        when(pagamentoRepository.findByReserva_Id(id)).thenReturn(Optional.empty());
 
-        Optional<Pagamento> resultado = pagamentoService.buscarPorReserva(idReserva);
+        Optional<Pagamento> resultado = pagamentoService.buscarPorReserva(id);
 
         assertFalse(resultado.isPresent());
-        verify(pagamentoRepository, times(1)).findByReserva_IdReserva(idReserva);
+        verify(pagamentoRepository, times(1)).findByReserva_Id(id);
     }
 
     // Teste para salvar um novo pagamento
     @Test
     public void testSalvarPagamento() {
         Pagamento novoPagamento = new Pagamento();
-        novoPagamento.setMetodo_pagamento(MetodoPagamento.CREDITO);
+        novoPagamento.setMetodoPagamento(MetodoPagamento.CREDITO);
     
         when(pagamentoRepository.save(novoPagamento)).thenReturn(novoPagamento);
     
         Pagamento resultado = pagamentoService.salvar(novoPagamento);
     
-        assertEquals(MetodoPagamento.CREDITO, resultado.getMetodo_pagamento()); // Comparando com o enum
+        assertEquals(MetodoPagamento.CREDITO, resultado.getMetodoPagamento()); // Comparando com o enum
         verify(pagamentoRepository, times(1)).save(novoPagamento);
     }
     
@@ -111,23 +111,23 @@ public class PagamentoServiceTest {
     // Teste para atualizar um pagamento existente
     @Test
 public void testAtualizarPagamentoExistente() {
-    String idPagamento = "1";
+    String id = "1";
     Pagamento pagamentoExistente = new Pagamento();
-    pagamentoExistente.setId_pagamento(idPagamento);
-    pagamentoExistente.setMetodo_pagamento(MetodoPagamento.BOLETO);  // Valor original
+    pagamentoExistente.setId(id);
+    pagamentoExistente.setMetodoPagamento(MetodoPagamento.BOLETO);  // Valor original
 
     Pagamento dadosAtualizados = new Pagamento();
-    dadosAtualizados.setMetodo_pagamento(MetodoPagamento.DEBITO);  // Valor atualizado
+    dadosAtualizados.setMetodoPagamento(MetodoPagamento.DEBITO);  // Valor atualizado
 
     // Mockando as chamadas do repositório
-    when(pagamentoRepository.findById(idPagamento)).thenReturn(Optional.of(pagamentoExistente));
+    when(pagamentoRepository.findById(id)).thenReturn(Optional.of(pagamentoExistente));
     when(pagamentoRepository.save(any(Pagamento.class))).thenReturn(pagamentoExistente);
 
-    Optional<Pagamento> resultado = pagamentoService.atualizar(idPagamento, dadosAtualizados);
+    Optional<Pagamento> resultado = pagamentoService.atualizar(id, dadosAtualizados);
 
     assertTrue(resultado.isPresent());
-    assertEquals(MetodoPagamento.DEBITO, resultado.get().getMetodo_pagamento());  // Comparar com o enum correto
-    verify(pagamentoRepository, times(1)).findById(idPagamento);
+    assertEquals(MetodoPagamento.DEBITO, resultado.get().getMetodoPagamento());  // Comparar com o enum correto
+    verify(pagamentoRepository, times(1)).findById(id);
     verify(pagamentoRepository, times(1)).save(pagamentoExistente);
 }
 
@@ -135,30 +135,30 @@ public void testAtualizarPagamentoExistente() {
     // Teste para tentar atualizar um pagamento que não existe
     @Test
     public void testAtualizarPagamentoNaoExistente() {
-        String idPagamento = "99";
+        String id = "99";
         Pagamento dadosAtualizados = new Pagamento();
-        dadosAtualizados.setMetodo_pagamento(MetodoPagamento.valueOf("PIX"));
+        dadosAtualizados.setMetodoPagamento(MetodoPagamento.valueOf("PIX"));
 
-        when(pagamentoRepository.findById(idPagamento)).thenReturn(Optional.empty());
+        when(pagamentoRepository.findById(id)).thenReturn(Optional.empty());
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
-            pagamentoService.atualizar(idPagamento, dadosAtualizados);
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            pagamentoService.atualizar(id, dadosAtualizados);
         });
 
-        assertEquals("Pagamento não encontrado com o ID: " + idPagamento, exception.getMessage());
-        verify(pagamentoRepository, times(1)).findById(idPagamento);
+        assertEquals("Pagamento não encontrado com o ID: " + id, exception.getMessage());
+        verify(pagamentoRepository, times(1)).findById(id);
         verify(pagamentoRepository, never()).save(any(Pagamento.class));
     }
 
     // Teste para deletar um pagamento
     @Test
     public void testDeletarPagamento() {
-        String idPagamento = "1";
+        String id = "1";
 
-        doNothing().when(pagamentoRepository).deleteById(idPagamento);
+        doNothing().when(pagamentoRepository).deleteById(id);
 
-        pagamentoService.deletar(idPagamento);
+        pagamentoService.deletar(id);
 
-        verify(pagamentoRepository, times(1)).deleteById(idPagamento);
+        verify(pagamentoRepository, times(1)).deleteById(id);
     }
 }
