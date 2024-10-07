@@ -1,5 +1,6 @@
 package com.example.hostly_api.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -14,6 +15,9 @@ public class HospedeService {
     @Autowired
     private HospedeRepository hospedeRepository;
 
+    public List<Hospede> listarTodos() {
+    return hospedeRepository.findAll(); // Busca todos os hóspedes no banco de dados
+}
     // Buscar hóspede por CPF
     public Optional<Hospede> buscarPorCpf(String cpf) {
         return hospedeRepository.findByCpf(cpf);

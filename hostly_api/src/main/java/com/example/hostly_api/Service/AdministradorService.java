@@ -14,6 +14,7 @@ public class AdministradorService {
     @Autowired
     private AdministradorRepository administradorRepository;
 
+    
     // Buscar administrador por ID
     public Optional<Administrador> buscarPorId(String id) {
         return administradorRepository.findById(id);
@@ -23,6 +24,7 @@ public class AdministradorService {
     public Optional<Administrador> buscarPorEmail(String email) {
         return administradorRepository.findByEmail(email);
     }
+
 
     // Salvar um administrador
     public Administrador salvar(Administrador administrador) {

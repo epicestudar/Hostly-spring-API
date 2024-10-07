@@ -1,5 +1,6 @@
 package com.example.hostly_api.RestController;
 
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -49,6 +50,16 @@ public class HospedeRestController {
 
         return hospede.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    // Listar todos os hóspedes
+    @GetMapping
+    public ResponseEntity<List<Hospede>> listarTodos() {
+        List<Hospede> hospedes = hospedeService.listarTodos();
+        if (hospedes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(hospedes);
     }
 
     // Salvar um novo hóspede
