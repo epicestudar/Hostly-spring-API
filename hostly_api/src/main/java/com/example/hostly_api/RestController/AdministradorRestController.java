@@ -1,9 +1,11 @@
 package com.example.hostly_api.RestController;
 
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hostly_api.Model.Administrador;
+import com.example.hostly_api.Model.Hospede;
 import com.example.hostly_api.Service.AdministradorService;
 
 
@@ -50,6 +53,27 @@ public class AdministradorRestController {
         Administrador novoAdministrador = administradorService.salvar(administrador);
         return ResponseEntity.ok(novoAdministrador);
     }
+
+    @PostMapping("/login")
+public ResponseEntity<String> login(@RequestBody Map<String, String> credenciais) {
+    String email = credenciais.get("email");
+    String senha = credenciais.get("senha");
+    
+    Optional<Administrador> administradorOpt = administradorService.buscarPorEmail(email);
+    
+    if (administradorOpt.isPresent()) {
+        Administrador administrador = administradorOpt.get();
+        if (administrador.getSenha().equals(senha)) {
+            return ResponseEntity.ok("Login bem-sucedido!");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
+        }
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Administrador não encontrado");
+    }
+}
+
+
 
     // Atualizar um administrador
     @PutMapping("/{id}")
