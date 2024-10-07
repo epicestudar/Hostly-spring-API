@@ -1,5 +1,6 @@
 package com.example.hostly_api.RestController;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -40,6 +41,12 @@ public class QuartoRestController {
         
         return quarto.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Quarto>> listarQuartos() {
+        List<Quarto> quartos = quartoService.listarTodos();
+        return ResponseEntity.ok(quartos);
     }
 
     // Salvar um novo quarto

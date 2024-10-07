@@ -1,5 +1,6 @@
 package com.example.hostly_api.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -21,6 +22,10 @@ public class QuartoService {
     // Buscar quarto pelo código do quarto
     public Optional<Quarto> buscarPorCodigo(String codigoQuarto) {
         return quartoRepository.findByCodigoQuarto(codigoQuarto);
+    }
+
+    public List<Quarto> listarTodos() {
+        return quartoRepository.findAll();
     }
 
     // Salvar um novo quarto
