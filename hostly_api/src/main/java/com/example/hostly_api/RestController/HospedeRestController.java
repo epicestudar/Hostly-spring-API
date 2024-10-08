@@ -70,23 +70,24 @@ public class HospedeRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> credenciais) {
-        String email = credenciais.get("email");
-        String senha = credenciais.get("senha");
+public ResponseEntity<Hospede> login(@RequestBody Map<String, String> credenciais) {
+    String email = credenciais.get("email");
+    String senha = credenciais.get("senha");
 
-        Optional<Hospede> hospedeOpt = hospedeService.buscarPorEmail(email);
+    Optional<Hospede> hospedeOpt = hospedeService.buscarPorEmail(email);
 
-        if (hospedeOpt.isPresent()) {
-            Hospede hospede = hospedeOpt.get();
-            if (hospede.getSenha().equals(senha)) {
-                return ResponseEntity.ok("Login bem-sucedido!");
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
-            }
+    if (hospedeOpt.isPresent()) {
+        Hospede hospede = hospedeOpt.get();
+        if (hospede.getSenha().equals(senha)) {
+            return ResponseEntity.ok(hospede); // Retorna o objeto Hospede com o CPF e outros dados
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Hóspede não encontrado");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+}
+
 
     // Atualizar um hóspede
     @PutMapping("/{id}")
