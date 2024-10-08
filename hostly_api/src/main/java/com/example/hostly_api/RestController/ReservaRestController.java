@@ -49,25 +49,11 @@ public class ReservaRestController {
         return ResponseEntity.ok(reservas);
     }
 
-    @PostMapping("/reservas")
-    public ResponseEntity<Reserva> criarReserva(@RequestBody Reserva reserva) {
-        // Certifique-se de que o hóspede e o quarto estão sendo definidos corretamente
-        Hospede hospede = hospedeRepository.findById(reserva.getHospede().getId()).orElse(null);
-        Quarto quarto = quartoRepository.findByCodigoQuarto(reserva.getQuarto().getCodigoQuarto())
-                .orElse(null);
-
-        if (hospede != null && quarto != null) {
-            reserva.setHospede(hospede);
-            reserva.setQuarto(quarto);
-            reserva.setDataReserva(LocalDate.now());
-
-            Reserva novaReserva = reservaService.salvar(reserva);
-            return ResponseEntity.ok(novaReserva);
-        } else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        
+    @PostMapping
+    public ResponseEntity<?> criarReserva(@RequestBody Reserva reserva) {
+        // Lógica para salvar a reserva no banco de dados
+        Reserva novaReserva = reservaService.salvar(reserva);
+        return ResponseEntity.ok(novaReserva);
     }
 
     // Atualizar uma reserva

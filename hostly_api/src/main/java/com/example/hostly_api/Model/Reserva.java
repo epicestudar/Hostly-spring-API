@@ -29,9 +29,6 @@ public class Reserva implements Serializable {
     @NotNull(message = "O cpf do hospede é obrigatório")
     private Hospede hospede;
 
-    @NotNull(message = "O nome do hospede é obrigatório")
-    private String nomeHospede; // Mantenha apenas como String
-
     @NotNull(message = "A quantidade de diarias é obrigatória")
     @Min(value = 1, message = "A quantidade mínima de diárias é 1")
     @Max(value = 30, message = "A quantidade máxima de diárias é 30")
