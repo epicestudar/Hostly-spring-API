@@ -1,8 +1,16 @@
 HELP.md
+# Ignorar diretórios de construção, exceto os relatórios de teste
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/test/**/target/**  # Permitir a adição de relatórios dentro do diretório de teste
+
+# Remover outras regras que podem estar ignorando relatórios
+# Exemplo de uma regra que poderia ser ajustada ou removida:
+# build/
+# !**/src/main/**/build/
+# !**/src/test/**/build/  # Permitir a adição de relatórios dentro do diretório de teste
+
 
 ### STS ###
 .apt_generated
