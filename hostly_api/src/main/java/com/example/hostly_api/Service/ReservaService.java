@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import com.example.hostly_api.Model.Reserva;
 import com.example.hostly_api.Repository.ReservaRepository;
 
@@ -18,6 +18,11 @@ public class ReservaService {
     // Buscar reserva por ID
     public Optional<Reserva> buscarPorId(String id) {
         return this.reservaRepository.findById(id);
+    }
+
+    // Buscar reservas pelo CPF do hóspede
+    public List<Reserva> buscarPorCpfHospede(String cpf) {
+        return reservaRepository.findByHospedeCpf(cpf);
     }
 
     // Salvar uma nova reserva
