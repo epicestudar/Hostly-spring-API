@@ -34,7 +34,7 @@ public class Pagamento implements Serializable {
     @NotNull(message = "O valor pago é obrigatório")
     private Double valorPago; // Valor pago
 
-    private MetodoPagamento metodoPagamento = MetodoPagamento.DINHEIRO;
+    private MetodoPagamento metodoPagamento = MetodoPagamento.CREDITO;
 
     // Método para calcular o valor total do pagamento
     public Double calcularValorPagamento() {

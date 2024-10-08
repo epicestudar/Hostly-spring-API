@@ -68,6 +68,30 @@ public class QuartoRestController {
         }
     }
 
+// Atualizar o quarto pelo código do quarto
+@PutMapping("/codigo/{codigo_quarto}")
+public ResponseEntity<Quarto> atualizarPorCodigo(@PathVariable String codigo_quarto, @RequestBody Quarto dadosAtualizados) {
+    try {
+        // Buscar o quarto pelo código
+        Optional<Quarto> quartoExistente = quartoService.buscarPorCodigo(codigo_quarto);
+        
+        if (quartoExistente.isPresent()) {
+            // Atualizar o quarto encontrado com os novos dados
+            Optional<Quarto> quartoAtualizado = quartoService.atualizar(quartoExistente.get().getId(), dadosAtualizados);
+            return quartoAtualizado.map(ResponseEntity::ok)
+                                   .orElse(ResponseEntity.notFound().build());
+        } else {
+            // Caso o quarto não seja encontrado, retornar NOT FOUND
+            return ResponseEntity.notFound().build();
+        }
+    } catch (NoSuchElementException e) {
+        // Em caso de erro ou exceção, retornar NOT FOUND
+        return ResponseEntity.notFound().build();
+    }
+}
+
+
+
     // Deletar um quarto
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable String id) {
