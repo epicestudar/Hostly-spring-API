@@ -56,11 +56,24 @@ public class ReservaRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> criarReserva(@RequestBody Reserva reserva) {
-        // Lógica para salvar a reserva no banco de dados
+public ResponseEntity<?> criarReserva(@RequestBody Reserva reserva) {
+    try {
+        Quarto quarto = quartoRepository.findByCodigoQuarto(reserva.getQuarto().getCodigoQuarto())
+                .orElseThrow(() -> new NoSuchElementException("Quarto não encontrado."));
+        Hospede hospede = hospedeRepository.findByCpf(reserva.getHospede().getCpf())
+                .orElseThrow(() -> new NoSuchElementException("Hóspede não encontrado."));
+
+        reserva.setQuarto(quarto);
+        reserva.setHospede(hospede);
+        reserva.setDataReserva(LocalDate.now());
+
         Reserva novaReserva = reservaService.salvar(reserva);
         return ResponseEntity.ok(novaReserva);
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: " + e.getMessage());
     }
+}
+
     
 
     // Atualizar uma reserva
