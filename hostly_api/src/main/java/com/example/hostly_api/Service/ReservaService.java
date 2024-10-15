@@ -15,6 +15,10 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
+    public List<Reserva> buscarTodas() {
+        return reservaRepository.findAll();
+    }
+
     // Buscar reserva por ID
     public Optional<Reserva> buscarPorId(String id) {
         return this.reservaRepository.findById(id);

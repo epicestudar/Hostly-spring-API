@@ -49,12 +49,19 @@ public class ReservaRestController {
         return ResponseEntity.ok(reservas);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Reserva>> listarTodasReservas() {
+        List<Reserva> reservas = reservaService.buscarTodas();
+        return ResponseEntity.ok(reservas);
+    }
+
     @PostMapping
     public ResponseEntity<?> criarReserva(@RequestBody Reserva reserva) {
         // Lógica para salvar a reserva no banco de dados
         Reserva novaReserva = reservaService.salvar(reserva);
         return ResponseEntity.ok(novaReserva);
     }
+    
 
     // Atualizar uma reserva
     @PutMapping("/{id}")
