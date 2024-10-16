@@ -99,4 +99,61 @@ Cadastra um administrador no sistema.
   "mensagem": "Administrador cadastrado com sucesso!"
 }
 ```
+
+### 4.2 Cadastro do Hóspede
+
+#### **POST /api/hospedes**  
+Cadastra um hóspede no sistema.
+
+- **URL para o Thunder Client:**  
+  `http://localhost:8080/api/hospedes`
+
+#### **Request Body:**
+```json
+{
+    "nome": "Vinicius",
+    "dataNascimento": "2006-02-06",
+    "telefone": "5519982501287",
+    "cpf": "12345678901",
+    "email": "vini@email.com",
+    "senha": "12345678"   
+}
+```
+
+#### **Response (201):**
+
+```json
+{
+  "mensagem": "Hóspede cadastrado com sucesso!"
+}
+```
+
+
+### 4.3 Cadastro do Quarto
+
+#### **POST /api/quartos**  
+Cadastra um quarto no sistema.
+
+- **URL para o Thunder Client:**  
+  `http://localhost:8080/api/quartos`
+
+#### **Request Body:**
+```json
+{
+    "codigoQuarto": "2A",
+    "tipoQuarto": "SUITE",
+    "capacidadeQuarto": 3,
+    "valorQuarto": 400.0
+}
+```
+
+#### **Response (201):**
+
+```json
+{
+  "mensagem": "Quarto cadastrado com sucesso!"
+}
+```
+
+
 <br><br><br><br><br>
