@@ -38,24 +38,39 @@ A API do Sistema de Controle de Reservas de Hotel é responsável por permitir a
 - **Thunder Client** para testes de API  
 <br><br><br><br><br>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=440&size=22&pause=1000&color=38F77CFF&center=false&vCenter=false&repeat=false&width=435&lines=Recursos" alt="Typing SVG"/></a>
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=440&size=22&pause=1000&color=38F77CFF&center=false&vCenter=false&repeat=false&width=435&lines=Instalação e Configuração" alt="Typing SVG"/></a>
 
-**Equipe:**
-- 1 Gerente de Projetos
-- 3 Desenvolvedores Full-Stack (Spring Boot e Java)
-- 1 Administrador de Banco de Dados
-- 1 Especialista em Segurança
+### Clone o repositório:
 
-**Tecnologias:**
-- **Spring Boot** (API)
-- **Java Swing** (Interface)
-- **MongoDB** (Banco de Dados)
-- **Git/GitHub** (Controle de Versão)
+```bash
+git clone https://github.com/epicestudar/Hostly-spring-API.git
+```
 
-**Ferramentas de Gestão:**
-- Trello para gerenciamento de tarefas
-- Slack para comunicação interna
-- Mermaid para montagem dos diagramas
+### Acesse o diretório:
+
+```bash
+cd hostly_api
+```
+
+### Configure o application.properties:
+
+```bash
+spring.data.mongodb.uri=mongodb://localhost:27017/hostly
+```
+
+### Instale as dependências no seu terminal:
+
+```bash
+mvn clean install
+```
+
+### Execute o projeto:
+
+```bash
+mvn spring-boot:run
+```
+
+### - Certifique-se de ter o [git](https://git-scm.com/downloads) e [maven](https://maven.apache.org/download.cgi) instalados.
 
 <br><br><br><br><br>
 
