@@ -99,7 +99,7 @@ Cadastra um administrador no sistema.
   "mensagem": "Administrador cadastrado com sucesso!"
 }
 ```
-
+<br><br><br><br><br>
 ### 4.2 Cadastro do Hóspede
 
 #### **POST /api/hospedes**  
@@ -127,7 +127,7 @@ Cadastra um hóspede no sistema.
   "mensagem": "Hóspede cadastrado com sucesso!"
 }
 ```
-
+<br><br><br><br><br>
 
 ### 4.3 Cadastro do Quarto
 
