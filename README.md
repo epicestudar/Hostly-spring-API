@@ -182,11 +182,11 @@ Realizar uma reserva de quarto.
     },
     "hospede": {
       "id": "id_respectivo_do_hospede",
-      "nome": "Davizao",
-      "dataNascimento": "2005-10-10",
-      "telefone": "12929832384",
-      "cpf": "12345678908",
-      "email": "davi@email.com",
+      "nome": "Vinicius",
+      "dataNascimento": "2006-02-06",
+      "telefone": "5519982501287",
+      "cpf": "12345678901",
+      "email": "vini@email.com",
       "senha": "12345678",
       "reservas": null
     },
